@@ -53,7 +53,8 @@ class BusinessController extends Controller
              'longitude' => 'required|numeric',
              'category_id' => 'required|exists:categories,id',
             //  'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'image' => 'nullable'
+            'image' => 'nullable',
+            'other' => 'nullable|string',
          ]);
      
          // Handle file upload
@@ -80,35 +81,36 @@ class BusinessController extends Controller
      
  
      // Update an existing business
-     public function update(Request $request, Business $business)
-    {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'address' => 'required|string|max:255',
-            'contact' => 'required|string|max:255',
-            'email' => 'required|email',
-            'owner' => 'required|string|max:255',
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
-            'category_id' => 'required|exists:categories,id',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        ]);
+     public function updateBusiness(Request $request, Business $business)
+        {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'description' => 'required|string',
+                'address' => 'required|string|max:255',
+                'contact' => 'required|string|max:255',
+                'email' => 'required|email',
+                'owner' => 'required|string|max:255',
+                'latitude' => 'required|numeric',
+                'longitude' => 'required|numeric',
+                'category_id' => 'required|exists:categories,id',
+                'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+                'other' => 'nullable|string',
+            ]);
 
-        // Handle file upload
-        if ($request->hasFile('image')) {
-            // Delete the old image if exists
-            if ($business->image) {
-                Storage::disk('public')->delete($business->image);
+            // Handle file upload
+            if ($request->hasFile('image')) {
+                // Delete the old image if exists
+                if ($business->image) {
+                    Storage::disk('public')->delete($business->image);
+                }
+
+                $validated['image'] = $request->file('image')->store('businesses', 'public');
             }
 
-            $validated['image'] = $request->file('image')->store('businesses', 'public');
+            $business->update($validated);
+
+            return response()->json($business);
         }
-
-        $business->update($validated);
-
-        return response()->json($business);
-    }
 
  
      // Delete a business

@@ -43,7 +43,10 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Pharmacy', 'description' => 'Stores selling prescription medications and health products.'],
             ['name' => 'Bookstore', 'description' => 'Retail businesses selling books and related products.'],
             ['name' => 'Restaurant', 'description' => 'Establishments that prepare and serve food and beverages to customers.'],
+            ['name' => 'Vulcanizing', 'description' => 'Services related to the repair and maintenance of tires, including fixing punctures and re-treading.'],
+            ['name' => 'Gadgets/Repairshops', 'description' => 'Stores and services that sell, repair, and maintain electronic gadgets, including phones, tablets, and computers.'],
         ];
+        
 
         // Insert categories with descriptions into the database
         foreach ($categories as $category) {
@@ -51,17 +54,17 @@ class DatabaseSeeder extends Seeder
         }
 
         
-        Business::create([
-            'name' => "McDonald's San Franz",
-            'description' => 'American fast food restaurant chain',
-            'latitude' => 8.504056,
-            'longitude' => 125.977010,
-            'address' => 'Brgy 5, San Francisco, Agusan del Sur',
-            'email' => 'mcdo@gmail.com',
-            'owner' => 'Me Myself and I',
-            'contact' => '09092384523',
-            'category_id' => 7
-        ]);
+        // Business::create([
+        //     'name' => "McDonald's San Franz",
+        //     'description' => 'American fast food restaurant chain',
+        //     'latitude' => 8.504056,
+        //     'longitude' => 125.977010,
+        //     'address' => 'Brgy 5, San Francisco, Agusan del Sur',
+        //     'email' => 'mcdo@gmail.com',
+        //     'owner' => 'Me Myself and I',
+        //     'contact' => '09092384523',
+        //     'category_id' => 7
+        // ]);
 
     }
 }

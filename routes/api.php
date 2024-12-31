@@ -19,9 +19,11 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [UserController::class, 'index']);
     Route::apiResource('/users', UserController::class);
+    Route::put('/changePassword', [UserController::class, 'changePassword']);
 
     // Business
     Route::apiResource('/businesses', BusinessController::class);
+    Route::put('/updateBusinesses/{businessId}',[ BusinessController::class, 'updateBusiness']);
 
     // Category
     Route::apiResource('/category', CategoryController::class);
